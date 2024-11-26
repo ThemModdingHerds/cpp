@@ -2,6 +2,7 @@
 #define __TMH_IO_READER_HPP
 
 #include "Endianness.hpp"
+#include "../Types/Data.hpp"
 
 #include <istream>
 #include <string>
@@ -29,10 +30,27 @@ namespace ThemModdingHerds::IO
          */
         Reader(std::istream &stream);
         /**
+         * @brief Create a Reader from a existing stream with a specific byte order
+         * @param stream The std::istream to use
+         * @param endianness The byte order of the stream
+         */
+        Reader(std::istream &stream,Endianness endianness);
+        /**
          * @brief Returns the reader's byte order
          * @return the byte order of this reader
          */
         Endianness endianness() const;
+        /**
+         * @brief Get current read position in stream
+         * @return The read offset
+         */
+        std::streampos offset();
+        /**
+         * @brief Sets a new read position for this reader
+         * @param offset The new offset from beginning
+         * @return this reader for self-chaining
+         */
+        Reader& setOffset(std::streampos offset);
         /**
          * @brief Sets a new byte order for this reader
          * @param endianness The new byte order to relate from
@@ -46,8 +64,8 @@ namespace ThemModdingHerds::IO
          */
         void read(void* input,std::streamsize size);
         /**
-         * @brief Read a `T` and return the value
-         * @tparam Type to read as
+         * @brief Read a `T` and return the value with that type
+         * @tparam T Type to read as
          * @return Value of type `T`
          */
         template<typename T>
@@ -83,6 +101,7 @@ namespace ThemModdingHerds::IO
          * @return The Pascal string
          */
         std::string readString8();
+        Types::Bytes readBytes(std::streamsize size);
     };
 }
 

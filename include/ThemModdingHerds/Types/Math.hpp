@@ -1,6 +1,8 @@
 #ifndef __TMH_TYPES_MATH_HPP
 #define __TMH_TYPES_MATH_HPP
 
+#include <ostream>
+
 namespace ThemModdingHerds::Types::Math
 {
     struct Vector2
@@ -14,6 +16,11 @@ namespace ThemModdingHerds::Types::Math
             float data[2];
         };
     };
+    inline std::ostream& operator<<(std::ostream& os,const Vector2 &vec)
+    {
+        os << '(' << vec.x << ',' << vec.y << ')';
+        return os;
+    }
     struct Vector3
     {
         union {
@@ -26,6 +33,11 @@ namespace ThemModdingHerds::Types::Math
             float data[3];
         };
     };
+    inline std::ostream& operator<<(std::ostream& os,const Vector3 &vec)
+    {
+        os << '(' << vec.x << ',' << vec.y << ',' << vec.z << ')';
+        return os;
+    }
     struct Vector4
     {
         union {
@@ -39,6 +51,11 @@ namespace ThemModdingHerds::Types::Math
             float data[4];
         };
     };
+    inline std::ostream& operator<<(std::ostream& os,const Vector4 &vec)
+    {
+        os << '(' << vec.x << ',' << vec.y << ',' << vec.z << ',' << vec.w << ')';
+        return os;
+    }
     struct Matrix4x4
     {
         union {
@@ -67,6 +84,11 @@ namespace ThemModdingHerds::Types::Math
             float data[16];
         };
     };
+    inline std::ostream& operator<<(std::ostream& os,const Matrix4x4 &mat)
+    {
+        os << "[[" << mat.m11 << ',' << mat.m12 << ',' << mat.m13 << mat.m14 << "],[" << mat.m21 << ',' << mat.m22 << ',' << mat.m23 << mat.m24 << "],[" << mat.m31 << ',' << mat.m32 << ',' << mat.m33 << mat.m34 << "],[" << mat.m41 << ',' << mat.m42 << ',' << mat.m43 << mat.m44 << "]]";
+        return os;
+    }
 }
 
 #endif
