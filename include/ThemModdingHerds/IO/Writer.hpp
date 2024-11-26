@@ -91,31 +91,31 @@ namespace ThemModdingHerds::IO
          * @param str The string to write
          * @return this writer for self-chaining
          */
-        Writer& writeString(const std::string &str);
+        Writer& writeString(std::string str);
         /**
          * @brief Write `str` as a 64-bit Pascal string to stream
          * @param str The string to write
          * @return this writer for self-chaining
          */
-        Writer& writeString64(const std::string &str);
+        Writer& writeString64(std::string str);
         /**
          * @brief Write `str` as a 32-bit Pascal string to stream
          * @param str The string to write
          * @return this writer for self-chaining
          */
-        Writer& writeString32(const std::string &str);
+        Writer& writeString32(std::string str);
         /**
          * @brief Write `str` as a 16-bit Pascal string to stream
          * @param str The string to write
          * @return this writer for self-chaining
          */
-        Writer& writeString16(const std::string &str);
+        Writer& writeString16(std::string str);
         /**
          * @brief Write `str` as a 8-bit Pascal string to stream
          * @param str The string to write
          * @return this writer for self-chaining
          */
-        Writer& writeString8(const std::string &str);
+        Writer& writeString8(std::string str);
         /**
          * @brief Writes `bytes` into stream
          * @param bytes the array of bytes to write

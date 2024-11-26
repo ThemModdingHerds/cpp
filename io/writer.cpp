@@ -41,27 +41,27 @@ namespace ThemModdingHerds::IO
         delete[] temp;
         return *this;
     }
-    Writer& Writer::writeString(const std::string &str)
+    Writer& Writer::writeString(std::string str)
     {
         mStream.write(&str[0],str.length());
         return *this;
     }
-    Writer& Writer::writeString64(const std::string &str)
+    Writer& Writer::writeString64(std::string str)
     {
         write<uint64_t>(str.length());
         return writeString(str);
     }
-    Writer& Writer::writeString32(const std::string &str)
+    Writer& Writer::writeString32(std::string str)
     {
         write<uint32_t>(str.length());
         return writeString(str);
     }
-    Writer& Writer::writeString16(const std::string &str)
+    Writer& Writer::writeString16(std::string str)
     {
         write<uint16_t>(str.length());
         return writeString(str);
     }
-    Writer& Writer::writeString8(const std::string &str)
+    Writer& Writer::writeString8(std::string str)
     {
         write<uint8_t>(str.length());
         return writeString(str);

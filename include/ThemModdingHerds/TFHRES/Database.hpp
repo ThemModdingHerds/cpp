@@ -6,17 +6,14 @@
 
 namespace ThemModdingHerds::TFHResource
 {
-    /**
-     * @brief Open a TFHResource database at path for `db`
-     * @param db The hiberlite Database to use
-     * @param path The path to the TFHResource database file
-     */
-    static void open(hiberlite::Database &db,const std::string &path);
-    /**
-     * @brief Create a TFHResource database for `db`
-     * @param db The hiberlite Database to use
-     */
-    static void create(hiberlite::Database &db);
+    class Database : public hiberlite::Database
+    {
+    public:
+        Database();
+        Database(std::string path);
+
+        void open(std::string path);
+    };
 }
 
 #endif

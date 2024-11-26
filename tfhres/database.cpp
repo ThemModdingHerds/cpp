@@ -1,18 +1,39 @@
 #include <ThemModdingHerds/TFHRES/Database.hpp>
 
+namespace hiberlite
+{ 
+    template<>
+    std::string Database::getClassName<ThemModdingHerds::TFHResource::CacheRecord>()
+    {
+        return "cache_record";
+    }
+    template<>
+    std::string Database::getClassName<ThemModdingHerds::TFHResource::CachedImage>()
+    {
+        return "cached_image";
+    }
+    template<>
+    std::string Database::getClassName<ThemModdingHerds::TFHResource::CachedTextfile>()
+    {
+        return "cached_textfile";
+    }
+}
+
 namespace ThemModdingHerds::TFHResource
 {
-    static void registerBeans(hiberlite::Database &db)
+    Database::Database(): hiberlite::Database()
     {
-        db.registerBeanClass<cache_record>();
+        registerBeanClass<CacheRecord>();
+        registerBeanClass<CachedImage>();
+        registerBeanClass<CachedTextfile>();
     }
-    static void open(hiberlite::Database &db,const std::string &path)
+    Database::Database(std::string path): Database()
     {
-        db.open(path);
-        create(db);
+        open(path);
     }
-    static void create(hiberlite::Database &db)
+    void Database::open(std::string path)
     {
-        registerBeans(db);
+        hiberlite::Database::open(path);
+        createModel();
     }
 }

@@ -87,7 +87,7 @@ namespace ThemModdingHerds::GFS
         }
         return *this;
     }
-    RevergePackage& RevergePackage::read(const std::string &path)
+    RevergePackage& RevergePackage::read(std::string path)
     {
         std::ifstream stream(path,std::ios::binary);
         IO::Reader reader(stream);
@@ -95,7 +95,7 @@ namespace ThemModdingHerds::GFS
         stream.close();
         return *this;
     }
-    RevergePackage& RevergePackage::readFromFolder(const std::string &path,uint32_t aligment)
+    RevergePackage& RevergePackage::readFromFolder(std::string path,uint32_t aligment)
     {
         std::filesystem::directory_entry folder(path);
         if(!folder.is_directory())
@@ -126,7 +126,7 @@ namespace ThemModdingHerds::GFS
         RecalculateHeader();
         return *this;
     }
-    RevergePackage& RevergePackage::readFromFolder(const std::string &path)
+    RevergePackage& RevergePackage::readFromFolder(std::string path)
     {
         return readFromFolder(path,1);
     }
@@ -155,7 +155,7 @@ namespace ThemModdingHerds::GFS
         }
         return *this;
     }
-    RevergePackage& RevergePackage::write(const std::string &path)
+    RevergePackage& RevergePackage::write(std::string path)
     {
         std::ofstream stream(path,std::ios::binary);
         IO::Writer writer(stream);

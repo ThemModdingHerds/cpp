@@ -4,8 +4,6 @@
 
 int main(int argc,char** argv)
 {
-    hiberlite::Database db;
-    ThemModdingHerds::TFHResource::create(db);
-    db.open("output.tfhres");
+    ThemModdingHerds::TFHResource::Database db;
     return EXIT_SUCCESS;
 }

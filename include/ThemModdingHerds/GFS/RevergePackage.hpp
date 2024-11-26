@@ -107,20 +107,20 @@ namespace ThemModdingHerds::GFS
          * @param path The path to a file
          * @return this Reverge Package for self-chaining
          */
-        RevergePackage& read(const std::string &path);
+        RevergePackage& read(std::string path);
         /**
          * @brief Clear the data and create a Reverge Package from a folder at `path` with `aligment`
          * @param path The path to a folder
          * @param aligment The aligment of each entry
          * @return this Reverge Package for self-chaining
          */
-        RevergePackage& readFromFolder(const std::string &path,uint32_t aligment);
+        RevergePackage& readFromFolder(std::string path,uint32_t aligment);
         /**
          * @brief Clear the data and create a Reverge Package from a folder at `path` with aligment `1`
          * @param path The path to a folder
          * @return this Reverge Package for self-chaining
          */
-        RevergePackage& readFromFolder(const std::string &path);
+        RevergePackage& readFromFolder(std::string path);
         /**
          * @brief Write the current Reverge Package to a `writer`. It will delete the data inside the writer
          * @param writer The writer to use
@@ -132,7 +132,7 @@ namespace ThemModdingHerds::GFS
          * @param path The path to a file
          * @return this Reverge Package for self-chaining
          */
-        RevergePackage& write(const std::string &path);
+        RevergePackage& write(std::string path);
     };
     inline std::ostream& operator<<(std::ostream& os,const RevergePackage &gfs)
     {
