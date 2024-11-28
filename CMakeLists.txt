@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
 # 3rd-Party libraries
 
-add_subdirectory(thirdparty/hiberlite)
+#add_subdirectory(thirdparty/hiberlite)
 
 # Libraries
 
@@ -19,10 +19,10 @@ target_include_directories(tmhgfs PRIVATE include)
 target_link_libraries(tmhgfs PRIVATE tmhio)
 add_dependencies(tmhgfs tmhio)
 
-add_library(tmhtfhres tfhres/database.cpp)
-target_include_directories(tmhtfhres PRIVATE include thirdparty/hiberlite/include)
-target_link_libraries(tmhtfhres PRIVATE hiberlite)
-add_dependencies(tmhtfhres hiberlite)
+#add_library(tmhtfhres tfhres/database.cpp)
+#target_include_directories(tmhtfhres PRIVATE include thirdparty/hiberlite/include)
+#target_link_libraries(tmhtfhres PRIVATE hiberlite)
+#add_dependencies(tmhtfhres hiberlite)
 
 # Executables
 
@@ -36,5 +36,5 @@ add_dependencies(tmhgfscli tmhgfs tmhio)
 if(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
     add_executable(tmhtest tests/test.cpp)
     target_include_directories(tmhtest PRIVATE include)
-    target_link_libraries(tmhtest PRIVATE tmhio tmhgfs tmhtfhres hiberlite)
+    target_link_libraries(tmhtest PRIVATE tmhio tmhgfs)
 endif()

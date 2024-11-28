@@ -66,6 +66,7 @@ namespace ThemModdingHerds::GFS
             reader.readString64(),
             reader.read<uint64_t>()
         };
+        std::cout << "header: " << mHeader << std::endl;
         std::streampos runningOffset = mHeader.dataOffset;
         for(uint64_t i = 0;i < mHeader.nOfFiles;i++)
         {
@@ -82,6 +83,7 @@ namespace ThemModdingHerds::GFS
 
             runningOffset += size;
             FileInfoData info = {path,size,alignment};
+            std::cout << i+1 << ". " << info << std::endl;
             mChunks.push_back(chunk);
             mFileInfos.push_back(info);
         }
@@ -95,11 +97,19 @@ namespace ThemModdingHerds::GFS
         stream.close();
         return *this;
     }
-    RevergePackage& RevergePackage::readFromFolder(std::string path,uint32_t aligment)
+    RevergePackage& RevergePackage::read(std::filesystem::path path)
     {
-        std::filesystem::directory_entry folder(path);
-        if(!folder.is_directory())
+        std::ifstream stream(path,std::ios::binary);
+        IO::Reader reader(stream);
+        read(reader);
+        stream.close();
+        return *this;
+    }
+    RevergePackage& RevergePackage::readFromFolder(std::string path,uint32_t alignment)
+    {
+        if(!std::filesystem::is_directory(path))
             throw new std::exception("path is not a directory");
+        std::filesystem::directory_entry folder(path);
         mHeader = DEFAULT_HEADER;
         mFileInfos.clear();
         mChunks.clear();
@@ -114,8 +124,9 @@ namespace ThemModdingHerds::GFS
             FileInfoData info = {
                 entryPath,
                 entry.file_size(),
-                aligment
+                alignment
             };
+            std::cout << "from " << filepath << " to " << info << std::endl;
             mFileInfos.push_back(info);
             std::ifstream stream(filepath,std::ios::binary);
             Chunk chunk((Chunk::size_type)entry.file_size(),(Types::Byte)0);
@@ -126,7 +137,15 @@ namespace ThemModdingHerds::GFS
         RecalculateHeader();
         return *this;
     }
+    RevergePackage& RevergePackage::readFromFolder(std::filesystem::path path,uint32_t alignment)
+    {
+        return readFromFolder(path.string(),alignment);
+    }
     RevergePackage& RevergePackage::readFromFolder(std::string path)
+    {
+        return readFromFolder(path,1);
+    }
+    RevergePackage& RevergePackage::readFromFolder(std::filesystem::path path)
     {
         return readFromFolder(path,1);
     }
@@ -149,6 +168,7 @@ namespace ThemModdingHerds::GFS
             std::streampos oldOffset = writer.offset();
             writer.setOffset(runningOffset);
             Chunk chunk = readChunk(i);
+            std::cout << '(' << i+1 << '/' << mHeader.nOfFiles << ')' << " writing " << info << std::endl;
             writer.writeBytes(chunk);
             writer.setOffset(oldOffset);
             runningOffset += info.size;
@@ -162,5 +182,35 @@ namespace ThemModdingHerds::GFS
         write(writer);
         stream.close();
         return *this;
+    }
+    RevergePackage& RevergePackage::write(std::filesystem::path path)
+    {
+        std::ofstream stream(path,std::ios::binary);
+        IO::Writer writer(stream);
+        write(writer);
+        stream.close();
+        return *this;
+    }
+    RevergePackage& RevergePackage::extract(std::string path)
+    {
+        std::filesystem::create_directory(path);
+        for(FileInfos::size_type i = 0;i < mFileInfos.size();i++)
+        {
+            FileInfoData& info = mFileInfos.at(i);
+            const Chunk& chunk = readChunk(info);
+            std::filesystem::path filepath(path);
+            filepath /= info.path;
+            filepath = std::filesystem::absolute(filepath);
+            std::filesystem::path folder = filepath.parent_path();
+            std::filesystem::create_directories(folder);
+            std::ofstream file(filepath,std::ios::binary);
+            file.write((const char*)&chunk[0],chunk.size());
+            file.close();
+        }
+        return *this;
+    }
+    RevergePackage& RevergePackage::extract(std::filesystem::path path)
+    {
+        return extract(path.string());
     }
 }

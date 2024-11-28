@@ -7,6 +7,8 @@
 
 #define REVERGEPACKAGE_IDENTIFIER "Reverge Package File"
 #define REVERGEPACKAGE_VERSION "1.1"
+#define REVERGEPACKAGE_EXTENSION ".gfs"
+#define REVERGEPACKAGE_MIMETYPE "application/reverge-package"
 
 namespace ThemModdingHerds::GFS
 {

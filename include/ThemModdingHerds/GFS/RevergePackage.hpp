@@ -4,6 +4,7 @@
 #include <vector>
 #include <span>
 #include <bit>
+#include <filesystem>
 #include <ostream>
 
 #include "Data.hpp"
@@ -109,6 +110,12 @@ namespace ThemModdingHerds::GFS
          */
         RevergePackage& read(std::string path);
         /**
+         * @brief Clear the data and read new data from a file at `path`
+         * @param path The path to a file
+         * @return this Reverge Package for self-chaining
+         */
+        RevergePackage& read(std::filesystem::path path);
+        /**
          * @brief Clear the data and create a Reverge Package from a folder at `path` with `aligment`
          * @param path The path to a folder
          * @param aligment The aligment of each entry
@@ -116,11 +123,24 @@ namespace ThemModdingHerds::GFS
          */
         RevergePackage& readFromFolder(std::string path,uint32_t aligment);
         /**
+         * @brief Clear the data and create a Reverge Package from a folder at `path` with `aligment`
+         * @param path The path to a folder
+         * @param aligment The aligment of each entry
+         * @return this Reverge Package for self-chaining
+         */
+        RevergePackage& readFromFolder(std::filesystem::path path,uint32_t alignment);
+        /**
          * @brief Clear the data and create a Reverge Package from a folder at `path` with aligment `1`
          * @param path The path to a folder
          * @return this Reverge Package for self-chaining
          */
         RevergePackage& readFromFolder(std::string path);
+        /**
+         * @brief Clear the data and create a Reverge Package from a folder at `path` with aligment `1`
+         * @param path The path to a folder
+         * @return this Reverge Package for self-chaining
+         */
+        RevergePackage& readFromFolder(std::filesystem::path path);
         /**
          * @brief Write the current Reverge Package to a `writer`. It will delete the data inside the writer
          * @param writer The writer to use
@@ -133,6 +153,24 @@ namespace ThemModdingHerds::GFS
          * @return this Reverge Package for self-chaining
          */
         RevergePackage& write(std::string path);
+        /**
+         * @brief Write the current Reverge Package to a file at `path`. It will delete the file at that path
+         * @param path The path to a file
+         * @return this Reverge Package for self-chaining
+         */
+        RevergePackage& write(std::filesystem::path path);
+        /**
+         * @brief Extract content of this Reverge Package to the folder at `path`
+         * @param path The path to a folder
+         * @return this Reverge Package for self-chaining
+         */
+        RevergePackage& extract(std::string path);
+        /**
+         * @brief Extract content of this Reverge Package to the folder at `path`
+         * @param path The path to a folder
+         * @return this Reverge Package for self-chaining
+         */
+        RevergePackage& extract(std::filesystem::path path);
     };
     inline std::ostream& operator<<(std::ostream& os,const RevergePackage &gfs)
     {
