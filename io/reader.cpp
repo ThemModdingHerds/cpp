@@ -1,6 +1,4 @@
 #include <ThemModdingHerds/IO/Reader.hpp>
-#include <algorithm>
-#include <iterator>
 
 namespace ThemModdingHerds::IO
 {
