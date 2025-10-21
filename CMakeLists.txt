@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 4.0)
+
 project(ThemModdingHerds)
 
 # Settings
@@ -7,7 +9,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
 # 3rd-Party libraries
 
-#add_subdirectory(thirdparty/hiberlite)
+add_subdirectory(thirdparty/sqlitecpp)
 
 # Libraries
 
@@ -19,10 +21,14 @@ target_include_directories(tmhgfs PRIVATE include)
 target_link_libraries(tmhgfs PRIVATE tmhio)
 add_dependencies(tmhgfs tmhio)
 
-#add_library(tmhtfhres tfhres/database.cpp)
-#target_include_directories(tmhtfhres PRIVATE include thirdparty/hiberlite/include)
-#target_link_libraries(tmhtfhres PRIVATE hiberlite)
-#add_dependencies(tmhtfhres hiberlite)
+add_library(tmhtfhres tfhres/database.cpp)
+target_include_directories(tmhtfhres PRIVATE include thirdparty/hiberlite/include)
+target_link_libraries(tmhtfhres PRIVATE
+    SQLiteCpp
+    sqlite3
+    pthread
+    dl
+)
 
 # Executables
 
